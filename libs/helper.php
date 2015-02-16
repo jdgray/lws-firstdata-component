@@ -39,17 +39,29 @@ class helper
 			$xml .= '<SOAP-ENV:Body>';
 			$xml .= '<fdggwsapi:FDGGWSApiOrderRequest xmlns:fdggwsapi="http://secure.linkpt.net/fdggwsapi/schemas_us/fdggwsapi">';
 			$xml .= '<v1:Transaction xmlns:v1="http://secure.linkpt.net/fdggwsapi/schemas_us/v1">';
-			$xml .= '<v1:CreditCardTxType>';
-			$xml .= '<v1:Type>' . $payment->type . '</v1:Type>';
-			$xml .= '</v1:CreditCardTxType>';
-			$xml .= '<v1:CreditCardData>';
-			$xml .= '<v1:CardNumber>' . $payment->ccNo . '</v1:CardNumber>';
-			$xml .= '<v1:ExpMonth>' . $payment->ccExpiresMonth . '</v1:ExpMonth>';
-			$xml .= '<v1:ExpYear>' . $payment->ccExpiresYear . '</v1:ExpYear>';
-			$xml .= '</v1:CreditCardData>';
-			$xml .= '<v1:Payment>';
-			$xml .= '<v1:ChargeTotal>' . $payment->ccAmount . '</v1:ChargeTotal>';
-			$xml .= '</v1:Payment>';
+				$xml .= '<v1:CreditCardTxType>';
+					$xml .= '<v1:Type>' . $payment->type . '</v1:Type>';
+				$xml .= '</v1:CreditCardTxType>';
+				$xml .= '<v1:CreditCardData>';
+					$xml .= '<v1:CardNumber>' . $payment->ccNo . '</v1:CardNumber>';
+					$xml .= '<v1:ExpMonth>' . $payment->ccExpiresMonth . '</v1:ExpMonth>';
+					$xml .= '<v1:ExpYear>' . $payment->ccExpiresYear . '</v1:ExpYear>';
+					$xml .= '<v1:CardCodeValue>' . $payment->ccCode . '</v1:CardCodeValue>';
+				$xml .= '</v1:CreditCardData>';
+				$xml .= '<v1:Payment>';
+					$xml .= '<v1:ChargeTotal>' . $payment->ccAmount . '</v1:ChargeTotal>';
+				$xml .= '</v1:Payment>';
+				$xml .= '<v1:Billing>';
+					$xml .= '<v1:Name>' . $payment->name . '</v1:Name>';
+					$xml .= '<v1:Email >' . $payment->email . '</v1:Email >';
+					$xml .= '<v1:Company >' . $payment->company . '</v1:Company >';
+				$xml .= '</v1:Billing>';
+				//$xml .= '<v1:TransactionDetails>';
+					//$xml .= '<v1:Recurring>No</v1:Recurring>';
+					//$xml .= '<v1:TransactionOrigin>ECI</v1:TransactionOrigin>';
+					//$xml .= '<v1:InvoiceNumber>' . $payment->invoice . '</v1:InvoiceNumber>';
+				//$xml .= '</v1:TransactionDetails>';
+
 			$xml .= '</v1:Transaction>';
 			$xml .= '</fdggwsapi:FDGGWSApiOrderRequest>';
 			$xml .= '</SOAP-ENV:Body>';
@@ -127,6 +139,21 @@ class helper
 	//
 	public static function parseResponse( $payment, $res )
 	{
+		$status = $res['status'];
+		$error = $res['error'];
+
+		print '<pre>';
+        print_r($res);
+        print '</pre>';
+
+		$doc = new DOMDocument();
+        $doc->loadXML($res['res']);
+
+        print '<pre>';
+        print_r($doc);
+        print '</pre>';
+
+        //print $doc->getElementsByTagName('<v1:OrderId');
 
 	}
 

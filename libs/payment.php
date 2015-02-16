@@ -39,6 +39,9 @@ class payment
 			if (empty($this->name)) {
 				throw new Exception('Name is required.');
 			}
+			if (empty($this->invoice)) {
+				throw new Exception('Invoice/description is required.');
+			}
 			if (empty($this->email)) {
 				throw new Exception('Email is required.');
 			}

@@ -18,7 +18,7 @@ class FirstDataController extends JController
 	{
 		try {
 
-			$testing = false;
+			$testing = true;
 			$error = '';
 			//JSession::checkToken('request') or jexit( JText::_( 'JINVALID_TOKEN' ) );
 			$jinput = JFactory::getApplication()->input;
@@ -39,6 +39,7 @@ class FirstDataController extends JController
 			//user
 			$payment->name = $jinput->get('name', '', 'STRING');
 			$payment->company = $jinput->get('company', '', 'STRING');
+			$payment->invoice = $jinput->get('invoice', '', 'STRING');
 			//$payment->address1 = $jinput->get('address1', '', 'STRING');
 			//$payment->address2 = $jinput->get('address2', '', 'STRING');
 			//$payment->city = $jinput->get('city', '', 'STRING');
@@ -48,13 +49,15 @@ class FirstDataController extends JController
 			//$payment->phone = $jinput->get('phone', '', 'STRING');
 			//cc
 			$payment->ccAmount = $jinput->get('ccAmount', '', 'INTEGER');
-			$payment->ccNo = $jinput->get('ccNo', '', 'INTEGER');
-			$payment->ccExpiresMonth = $jinput->get('ccExpiresMonth', '', 'INTEGER');
-			$payment->ccExpiresYear = $jinput->get('ccExpiresYear', '', 'INTEGER');
+			$payment->ccNo = $jinput->get('ccNo', '', 'STRING');
+			$payment->ccExpiresMonth = $jinput->get('ccExpiresMonth', '', 'STRING');
+			$payment->ccExpiresYear = $jinput->get('ccExpiresYear', '', 'STRING');
 			$payment->ccCode = $jinput->get('ccCode', '', 'INTEGER');
 			//contact
 			$payment->email = $jinput->get('email', '', 'STRING');
 			//$payment->notes = $jinput->get('notes', '', 'STRING');
+
+			$payment->ccNo = str_replace(" ", "", $payment->ccNo);
 
 			//valid form data
 			$error = $payment->validate();
@@ -65,7 +68,6 @@ class FirstDataController extends JController
 			//build
 			$xml = helper::buildxml($payment);
 
-			
 			//send api call
 			$res = helper::submitPayment($xml, $config, $testing);
 
@@ -73,11 +75,11 @@ class FirstDataController extends JController
 				throw new Exception('Error processing payment.');
 			}
 
-			$res = helper::parseResponse($res);
+			//$res = helper::parseResponse($payment, $res);
 
-			print '<pre>';
+			/*print '<pre>';
 			print_r($res);
-			print '<pre>';
+			print '<pre>';*/
 
 			//helper::sendReceiptEmail($payment, $res);
 			

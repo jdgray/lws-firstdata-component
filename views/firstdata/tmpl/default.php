@@ -22,9 +22,16 @@ defined('_JEXEC') or die('Restricted access');
 </div>
 <div class="form-group">
   <div class="form-item full" style="width: 470px">
+      <label>Invoice/Description</label>
+      <input name="invoice" type="text" required />
+  </div>
+</div>
+<div class="form-group">
+  <div class="form-item full" style="width: 470px">
       <label>Email</label>
       <input name="email" type="text" required />
   </div>
+</div>
 <div class="form-group">
   <div class="form-item full" style="width: 290px">
       <label>Card Number</label>
@@ -52,22 +59,22 @@ defined('_JEXEC') or die('Restricted access');
         <div class="form-item"> / </div>
         <div class="form-item">
           <SELECT NAME="ccExpiresYear" required>
-            <OPTION VALUE="05">2015</OPTION>
-            <OPTION VALUE="06">2016</OPTION>
-            <OPTION VALUE="07">2017</OPTION>
-            <OPTION VALUE="08">2018</OPTION>
-            <OPTION VALUE="09">2019</OPTION>
-            <OPTION VALUE="10">2020</OPTION>
-            <OPTION VALUE="11">2021</OPTION>
-            <OPTION VALUE="12">2022</OPTION>
-            <OPTION VALUE="13">2023</OPTION>
-            <OPTION VALUE="14">2024</OPTION>
-            <OPTION VALUE="15">2025</OPTION>
-            <OPTION VALUE="15">2026</OPTION>
-            <OPTION VALUE="15">2027</OPTION>
-            <OPTION VALUE="15">2028</OPTION>
-            <OPTION VALUE="15">2029</OPTION>
-            <OPTION VALUE="15">2030</OPTION>
+            <OPTION VALUE="15">2015</OPTION>
+            <OPTION VALUE="16">2016</OPTION>
+            <OPTION VALUE="17">2017</OPTION>
+            <OPTION VALUE="18">2018</OPTION>
+            <OPTION VALUE="19">2019</OPTION>
+            <OPTION VALUE="20">2020</OPTION>
+            <OPTION VALUE="21">2021</OPTION>
+            <OPTION VALUE="22">2022</OPTION>
+            <OPTION VALUE="23">2023</OPTION>
+            <OPTION VALUE="24">2024</OPTION>
+            <OPTION VALUE="25">2025</OPTION>
+            <OPTION VALUE="26">2026</OPTION>
+            <OPTION VALUE="27">2027</OPTION>
+            <OPTION VALUE="28">2028</OPTION>
+            <OPTION VALUE="29">2029</OPTION>
+            <OPTION VALUE="30">2030</OPTION>
           </SELECT>
         </div>
       </div>
