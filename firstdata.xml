@@ -29,6 +29,7 @@
 		<filename>firstdata.php</filename>
 		<filename>controller.php</filename>
 		<folder>views</folder>
+		<folder>libs</folder>
 	</files>
  
 	<administration>
