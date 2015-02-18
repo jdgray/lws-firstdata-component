@@ -71,19 +71,15 @@ class FirstDataController extends JController
 			//send api call
 			$res = helper::submitPayment($xml, $config, $testing);
 
-			if ($res["error"]) {
-				throw new Exception('Error processing payment.');
+			//parse res
+			$transaction = helper::parseResponse($res);
+
+			//print msgs
+			if ($transaction['result'] == 'APPROVED') {
+				JFactory::getApplication()->enqueueMessage($transaction['transaction_id'] . ' - Payment successful! Receipt emailed to ' . $payment->email . '.');	
+			} else {
+				JError::raiseWarning( 100, $transaction['error'] );
 			}
-
-			//$res = helper::parseResponse($payment, $res);
-
-			/*print '<pre>';
-			print_r($res);
-			print '<pre>';*/
-
-			//helper::sendReceiptEmail($payment, $res);
-			
-			JFactory::getApplication()->enqueueMessage('Payment successful! Receipt emailed to ' . $payment->email . '.');
 			
 			return true;
 			

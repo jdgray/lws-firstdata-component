@@ -137,23 +137,40 @@ class helper
 	//
 	//	Parse gatewat response
 	//
-	public static function parseResponse( $payment, $res )
+	public static function parseResponse( $curlData )
 	{
-		$status = $res['status'];
-		$error = $res['error'];
+		$res = array( "error" => null, "order_id" => null, "transaction_id" => null, "result" => null );
 
-		print '<pre>';
-        print_r($res);
-        print '</pre>';
+		$status = $curlData['status'];
+		$error = $curlData['error'];
+		$soap = $curlData['res'];
 
+		//convert
 		$doc = new DOMDocument();
-        $doc->loadXML($res['res']);
+		libxml_use_internal_errors(true);
+		$doc->loadHTML($soap);
+		libxml_clear_errors();
+		$xml = $doc->saveXML($doc->documentElement);
+		$xml = simplexml_load_string($xml);
 
-        print '<pre>';
-        print_r($doc);
-        print '</pre>';
 
-        //print $doc->getElementsByTagName('<v1:OrderId');
+		//get data
+		$body = $xml->body->envelope->body->fdggwsapiorderresponse;
+
+
+		if ((integer) $body->transactionid > 0) {
+			$res['error'] = null;
+			$res['order_id'] = (string) $body->errormessage->orderid[0];
+			$res['transaction_id'] = (string) $body->transactionid[0];
+			$res['result'] = (string) $body->transactionresult[0];
+		} else {
+			//$transaction = $body->commercialserviceprovider->transactionid->processorreferencenumber->processorresponsemessage;	
+			$res['error'] = (string) $body->errormessage[0];
+			$res['order_id'] = (string) $body->orderid[0];
+			$res['result'] = (string) $body->transactionresult[0];
+		}
+
+		return $res;
 
 	}
 
