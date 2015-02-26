@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<metadata>
-	<layout title="first_data_payment_form">
-		<message>
-			<![CDATA[first_data_payment_form]]>
-		</message>
-	</layout>
-</metadata>
+
 <extension type="component" version="2.5.0" method="upgrade">
- 
+
 	<name>firstdata</name>
 	<!-- The following elements are optional and free of formatting constraints -->
 	<creationDate>December 2014</creationDate>
@@ -17,7 +11,7 @@
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
 	<!--  The version string is recorded in the components table -->
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<!-- The description is optional and defaults to the name -->
 	<description>Simple payment form Link PT payment gateway.</description>
  	<!-- 
