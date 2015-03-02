@@ -30,8 +30,26 @@ class FirstDataViewFirstData extends JView
 		');
 
 		//add custom css here
-		
-		$style = '.payment-header {
+		$style .= '.payment-wrapper {
+				padding-bottom: 20px;
+			}';
+
+		$style .= '.payment-left {
+				float: left;
+				padding-right: 10px;
+				border-right: 1px solid #ddd;
+			}';
+
+		$style .= '.payment-right {
+				float: left;
+				padding-left: 25px
+			}';
+
+		$style .= '.clear {
+				clear: both;
+			}';
+
+		$style .= '.payment-header {
 			width: 500px;
 			border-top: 1px solid #ccc;
 			border-left: 1px solid #ccc;
