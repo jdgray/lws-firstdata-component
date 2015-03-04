@@ -14,14 +14,20 @@ class helper
 				"http_auth" 	=> "WS1909449222._.1:PNtsyRYQ",
 				"ssl_cert" 		=> "testing/WS1909449222._.1.pem",
 				"ssl_key"		=> "testing/WS1909449222._.1.key",
-				"ssl_key_pass"	=> "ckp_1423720666"
+				"ssl_key_pass"	=> "ckp_1423720666",
+				"email"			=> "jonathon@thesnippetapp.com",
+				"success_msg"	=> "Payment received. Thank you. An email receipt will be emailed to %s.",
+				"error_msg"		=> "Error. Payment unsuccessful. Please go back and try again."
 			),
 			"live" => array(
 				"url"			=> "https://ws.firstdataglobalgateway.com/fdggwsapi/services",
 				"http_auth" 	=> "WS1001339284._.1:7tAAEfJb",
 				"ssl_cert" 		=> "WS1001339284._.1.pem",
 				"ssl_key"		=> "WS1001339284._.1.key",
-				"ssl_key_pass"	=> "ckp_1423702785"
+				"ssl_key_pass"	=> "ckp_1423702785",
+				"email"			=> "personnel@languageworldservices.com",
+				"success_msg"	=> "Payment received. Thank you. An email receipt will be emailed to %s.",
+				"error_msg"		=> "Error. Payment unsuccessful. Please go back and try again."
 			)
 		);
 	}
@@ -51,17 +57,16 @@ class helper
 				$xml .= '<v1:Payment>';
 					$xml .= '<v1:ChargeTotal>' . $payment->ccAmount . '</v1:ChargeTotal>';
 				$xml .= '</v1:Payment>';
+				$xml .= '<v1:TransactionDetails>';
+					$xml .= '<v1:Recurring>No</v1:Recurring>';
+					$xml .= '<v1:InvoiceNumber>' . $payment->invoice . '</v1:InvoiceNumber>';
+					$xml .= '<v1:PONumber>' . $payment->invoice . '</v1:PONumber>';
+				$xml .= '</v1:TransactionDetails>';
 				$xml .= '<v1:Billing>';
 					$xml .= '<v1:Name>' . $payment->name . '</v1:Name>';
 					$xml .= '<v1:Email >' . $payment->email . '</v1:Email >';
 					$xml .= '<v1:Company >' . $payment->company . '</v1:Company >';
 				$xml .= '</v1:Billing>';
-				//$xml .= '<v1:TransactionDetails>';
-					//$xml .= '<v1:Recurring>No</v1:Recurring>';
-					//$xml .= '<v1:TransactionOrigin>ECI</v1:TransactionOrigin>';
-					//$xml .= '<v1:InvoiceNumber>' . $payment->invoice . '</v1:InvoiceNumber>';
-				//$xml .= '</v1:TransactionDetails>';
-
 			$xml .= '</v1:Transaction>';
 			$xml .= '</fdggwsapi:FDGGWSApiOrderRequest>';
 			$xml .= '</SOAP-ENV:Body>';
@@ -160,7 +165,7 @@ class helper
 
 		if ((integer) $body->transactionid > 0) {
 			$res['error'] = null;
-			$res['order_id'] = (string) $body->errormessage->orderid[0];
+			$res['order_id'] = (string) $body->orderid[0];
 			$res['transaction_id'] = (string) $body->transactionid[0];
 			$res['result'] = (string) $body->transactionresult[0];
 		} else {
@@ -177,19 +182,23 @@ class helper
 	//
 	// Send paymeny receipt
 	//
-	public static function sendReceiptEmail( $payment, $res )
+	public static function sendReceiptEmail( $email, $payment, $transaction )
 	{
+		setlocale(LC_MONETARY, 'en_US');
 		// The message
 		$message = "Thank you for your payment. " . "\r\n\r\n";
-		$message .= "Amount: " . $paymeny->ccAmount . "\r\n";
-		$message .= "Card: " . substr($paymeny->ccNo, -4) . "\r\n"; //only show last 4
-		$message .= "Receipt: " . substr($paymeny->ccNo, -4) . "\r\n";
+		$message .= "Amount: " . money_format('%i', $payment->ccAmount) . "\r\n";
+		$message .= "Date: " . date("F j, Y, g:i a") . "\r\n";
+		$message .= "Card: " . substr($payment->ccNo, -4) . "\r\n"; //only show last 4
+		$message .= "Invoice: " . $payment->invoice . "\r\n";
+		$message .= "Order ID: " . $transaction['order_id'] . "\r\n";
+		$message .= "Transaction ID: " . $transaction['transaction_id'] . "\r\n";
 
 		// In case any of our lines are larger than 70 characters, we should use wordwrap()
 		$message = wordwrap($message, 70, "\r\n");
 
 		// Send
-		mail($payment->email, 'LWS Charge Receipt - ' . $paymeny->transactionReceipt, $message);
+		mail($email, 'LWS Charge Receipt - ' . $transaction['transaction_id'], $message);
 	}
 
 }

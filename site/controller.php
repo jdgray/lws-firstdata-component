@@ -48,7 +48,7 @@ class FirstDataController extends JController
 			//$payment->country = $jinput->get('country', '', 'STRING');
 			//$payment->phone = $jinput->get('phone', '', 'STRING');
 			//cc
-			$payment->ccAmount = $jinput->get('ccAmount', '', 'INTEGER');
+			$payment->ccAmount = $jinput->get('ccAmount', '', 'DECIMAL');
 			$payment->ccNo = $jinput->get('ccNo', '', 'STRING');
 			$payment->ccExpiresMonth = $jinput->get('ccExpiresMonth', '', 'STRING');
 			$payment->ccExpiresYear = $jinput->get('ccExpiresYear', '', 'STRING');
@@ -76,9 +76,17 @@ class FirstDataController extends JController
 
 			//print msgs
 			if ($transaction['result'] == 'APPROVED') {
-				JFactory::getApplication()->enqueueMessage($transaction['transaction_id'] . ' - Payment successful! Receipt emailed to ' . $payment->email . '.');	
+
+				//send email receipt
+				helper::sendReceiptEmail($config['email'], $payment, $transaction);
+
+				$msg = sprintf($config['success_msg'], $payment->email);
+				JFactory::getApplication()->enqueueMessage($msg);	
+				//JFactory::getApplication()->enqueueMessage($transaction['transaction_id'] . ' - Payment successful! Receipt emailed to ' . $payment->email . '.');	
+				//
 			} else {
-				JError::raiseWarning( 100, $transaction['error'] );
+				JError::raiseWarning( 100, $config['error_msg'] );
+				//JError::raiseWarning( 100, $transaction['error'] );
 			}
 			
 			return true;
