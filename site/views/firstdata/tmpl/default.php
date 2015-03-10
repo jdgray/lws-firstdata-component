@@ -23,29 +23,29 @@ defined('_JEXEC') or die('Restricted access');
       <div class="form-group">
         <div class="form-item">
             <label>Amount:</label>
-            <input name="ccAmount" type="text" required />
+            <input name="ccAmount" type="text" maxlength="8" required />
         </div>
         <div class="form-item full" style="width: 290px">
             <label>Company:</label>
-            <input name="company" type="text">
+            <input name="company" maxlength="45" type="text">
         </div>
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 470px">
             <label>Invoice/Description</label>
-            <input name="invoice" type="text" required />
+            <input name="invoice" type="text" maxlength="45" required />
         </div>
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 470px">
             <label>Email</label>
-            <input name="email" type="text" required />
+            <input name="email" type="text" maxlength="45" required />
         </div>
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 290px">
             <label>Card Number</label>
-            <input name="ccNo" class="ccNo" type="text" maxlength="40" required />
+            <input name="ccNo" class="ccNo" type="text" maxlength="19" required />
         </div>
         <div class="form-item">
             <label>Expires:</label>
@@ -93,7 +93,7 @@ defined('_JEXEC') or die('Restricted access');
       <div class="form-group">
         <div class="form-item full" style="width: 290px">
             <label>Name on card:</label>
-            <input name="name" type="text" required />
+            <input name="name" type="text" maxlength="75" required />
         </div>
         <div class="form-item">
             <label>Card Code:</label>

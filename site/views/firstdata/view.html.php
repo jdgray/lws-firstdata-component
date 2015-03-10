@@ -22,8 +22,9 @@ class FirstDataViewFirstData extends JView
 		parent::display($tpl);
 
 		//add custom js here
+		//window.addEvent("domready", function() {
 		$document->addScriptDeclaration('
-			window.addEvent("domready", function() {
+			$(document).ready(function() {
 				console.log($("#payment-form.CCNo"));
 			    $("input.ccNo").payment("formatCardNumber");
 			});
