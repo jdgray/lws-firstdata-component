@@ -45,6 +45,9 @@ class payment
 			if (empty($this->email)) {
 				throw new Exception('Email is required.');
 			}
+			if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+				throw new Exception('Email is not valid.');	
+			}
 			/*if (empty($this->address1)) {
 				throw new Exception('Address is required.');
 			}
@@ -67,6 +70,9 @@ class payment
 			//all fields required
 			if (empty($this->ccAmount)) {
 				throw new Exception('Charge Amount is required.');
+			}
+			if ($this->ccAmount <= 0) {
+				throw new Exception('Amount is not valid.');
 			}
 			if (empty($this->ccNo)) {
 				throw new Exception('Credit Card Number is required.');

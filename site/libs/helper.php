@@ -186,7 +186,7 @@ class helper
 	{
 		setlocale(LC_MONETARY, 'en_US');
 		// The message
-		$message = "Thank you for your payment. " . "\r\n\r\n";
+		$message = "Payment transaction. " . "\r\n\r\n";
 		$message .= "Amount: " . money_format('%i', $payment->ccAmount) . "\r\n";
 		$message .= "Date: " . date("F j, Y, g:i a") . "\r\n";
 		$message .= "Card: " . substr($payment->ccNo, -4) . "\r\n"; //only show last 4
@@ -198,7 +198,22 @@ class helper
 		$message = wordwrap($message, 70, "\r\n");
 
 		// Send
-		mail($email, 'LWS Charge Receipt - ' . $transaction['transaction_id'], $message);
+		//mail($email, 'LWS Charge Receipt - ' . $transaction['transaction_id'], $message);
+		$mailer = JFactory::getMailer();
+		
+		$mailer->setSender(array('donotreply@languageworldservices.com', 'Language World Services'));
+		$mailer->addRecipient($email);
+		
+		$mailer->setSubject('LWS Charge Receipt - ' . $transaction['transaction_id']);
+		$mailer->setBody($message);
+		
+		$send = $mailer->Send();
+		if ( $send !== true ) {
+		    echo 'Error sending email: ' . $send->__toString();
+		} else {
+		    echo 'Mail sent';
+		}
+		
 	}
 
 }

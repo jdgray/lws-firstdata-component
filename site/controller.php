@@ -14,11 +14,26 @@ require_once(dirname(__FILE__) . '/libs/helper.php');
 class FirstDataController extends JController
 {
 
+	public function load()
+	{
+
+		//print any callback messages
+		$msg = (isset($_GET['msg']) ? $_GET['msg'] : null);
+		$error = (isset($_GET['error']) ? $_GET['error'] : false);
+
+		if ($error && $msg) {
+			JError::raiseWarning( 100, $msg );
+		} else if ($msg) {
+			JFactory::getApplication()->enqueueMessage($msg);
+		}
+
+	}
+
 	public function processpayment($cachable = false, $urlparams = false)
 	{
 		try {
 
-			$testing = true;
+			$testing = false;
 			$error = '';
 			//JSession::checkToken('request') or jexit( JText::_( 'JINVALID_TOKEN' ) );
 			$jinput = JFactory::getApplication()->input;
@@ -81,21 +96,28 @@ class FirstDataController extends JController
 				helper::sendReceiptEmail($config['email'], $payment, $transaction);
 
 				$msg = sprintf($config['success_msg'], $payment->email);
-				JFactory::getApplication()->enqueueMessage($msg);	
-				//JFactory::getApplication()->enqueueMessage($transaction['transaction_id'] . ' - Payment successful! Receipt emailed to ' . $payment->email . '.');	
-				//
+				
+				JFactory::getApplication()->redirect('index.php?option=com_firstdata&Itemid=353&view=firstdata&msg=' . $msg);
+				
 			} else {
-				JError::raiseWarning( 100, $config['error_msg'] );
-				//JError::raiseWarning( 100, $transaction['error'] );
+				throw new Exception($config['error_msg']);
 			}
 			
 			return true;
-			
 
 		} catch(Exception $e) {
-			JFactory::getApplication()->redirect('index.php?option=com_firstdata&msg=' + $e->getMessage());
-			//redirect back to form and show message
-			//$error = $e->getMessage();
+
+			$qs = '&Itemid=353&view=firstdata';
+			$qs .= '&error=true';
+			$qs .= '&msg=' . $e->getMessage();
+			$qs .= '&amount=' . $payment->ccAmount;
+			$qs .= '&name=' . $payment->name;
+			$qs .= '&company=' . $payment->company;
+			$qs .= '&invoice=' . $payment->invoice;
+			$qs .= '&email=' . $payment->email;
+
+			JFactory::getApplication()->redirect('index.php?option=com_firstdata' . $qs);
+
 		}
 
 

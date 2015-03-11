@@ -13,6 +13,9 @@ $document->addScript('https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.
 
 // Get an instance of the controller prefixed by HelloWorld
 $controller = JController::getInstance('FirstData');
+
+//perform load tasks
+$controller->load();
  
 // Perform the Request task
 $input = JFactory::getApplication()->input;

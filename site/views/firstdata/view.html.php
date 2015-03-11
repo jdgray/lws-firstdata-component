@@ -16,7 +16,7 @@ class FirstDataViewFirstData extends JView
 		$document = JFactory::getDocument();
 
 		// Assign data to the view
-		$this->msg = 'Make a payment';
+		$this->msg = 'Payment form';
  
 		// Display the view
 		parent::display($tpl);
@@ -25,8 +25,18 @@ class FirstDataViewFirstData extends JView
 		//window.addEvent("domready", function() {
 		$document->addScriptDeclaration('
 			$(document).ready(function() {
-				console.log($("#payment-form.CCNo"));
 			    $("input.ccNo").payment("formatCardNumber");
+			    
+			    $("#payment-submit").click(function(){
+
+			    	if ($("#payment-form").parsley().isValid()) {
+				    	$(this).val("Processing...");
+				    	$(this).attr("disabled", "disabled");
+				    	$("#payment-form").submit();
+			    	}
+			    	
+			    });
+		
 			});
 		');
 
@@ -90,7 +100,7 @@ class FirstDataViewFirstData extends JView
 		$style .= '#payment-form select {
 			padding: 6px 6px;
 			margin: 4px 4px 0px 4px;
-			height: 40px;
+			height: 35px;
 			font-size: 14px;
 			border: 1px solid #cccccc;
 			border-radius: 4px;

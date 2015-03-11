@@ -23,33 +23,33 @@ defined('_JEXEC') or die('Restricted access');
       <div class="form-group">
         <div class="form-item">
             <label>Amount:</label>
-            <input name="ccAmount" type="text" maxlength="8" required />
+            <input name="ccAmount" type="text" maxlength="8" value="<?php echo (isset($_GET['amount']) ? $_GET['amount'] : '0.00') ?>" required />
         </div>
-        <div class="form-item full" style="width: 290px">
+        <div class="form-item full" style="width: 275px">
             <label>Company:</label>
-            <input name="company" maxlength="45" type="text">
+            <input name="company" maxlength="45" type="text" value="<?php echo (isset($_GET['company']) ? $_GET['company'] : '') ?>">
         </div>
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 470px">
-            <label>Invoice/Description</label>
-            <input name="invoice" type="text" maxlength="45" required />
+            <label>Invoice/Description:</label>
+            <input name="invoice" type="text" maxlength="45" value="<?php echo (isset($_GET['invoice']) ? $_GET['invoice'] : '') ?>" required />
         </div>
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 470px">
-            <label>Email</label>
-            <input name="email" type="text" maxlength="45" required />
+            <label>Email:</label>
+            <input name="email" type="text" maxlength="45" value="<?php echo (isset($_GET['email']) ? $_GET['email'] : '') ?>" required />
         </div>
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 290px">
-            <label>Card Number</label>
+            <label>Card Number:</label>
             <input name="ccNo" class="ccNo" type="text" maxlength="19" required />
         </div>
         <div class="form-item">
             <label>Expires:</label>
-            <div style="width: 180px">
+            <div style="margin-left: -10px; margin-bottom: 0px">
               <div class="form-item">
                 <SELECT NAME="ccExpiresMonth" required >
                       <OPTION VALUE="01">01</OPTION>
@@ -93,7 +93,7 @@ defined('_JEXEC') or die('Restricted access');
       <div class="form-group">
         <div class="form-item full" style="width: 290px">
             <label>Name on card:</label>
-            <input name="name" type="text" maxlength="75" required />
+            <input name="name" type="text" maxlength="75" value="<?php echo (isset($_GET['name']) ? $_GET['name'] : '') ?>" required />
         </div>
         <div class="form-item">
             <label>Card Code:</label>
@@ -103,7 +103,7 @@ defined('_JEXEC') or die('Restricted access');
       <div class="form-group">
         <input type="hidden" name="option" value="com_firstdata" />
         <input type="hidden" name="task" value="processpayment" />
-        <input class="submit" name="Submit" type="submit" value="Send Secure Payment">
+        <input class="submit" name="Submit" type="submit" value="Send Secure Payment" id="payment-submit">
       </div>
       </form>
     </div>
