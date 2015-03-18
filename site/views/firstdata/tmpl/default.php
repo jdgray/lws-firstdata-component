@@ -27,13 +27,13 @@ defined('_JEXEC') or die('Restricted access');
         </div>
         <div class="form-item full" style="width: 275px">
             <label>Company:</label>
-            <input name="company" maxlength="45" type="text" value="<?php echo (isset($_GET['company']) ? $_GET['company'] : '') ?>">
+            <input name="company" maxlength="24" type="text" value="<?php echo (isset($_GET['company']) ? $_GET['company'] : '') ?>">
         </div>
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 470px">
-            <label>Invoice/Description:</label>
-            <input name="invoice" type="text" maxlength="45" value="<?php echo (isset($_GET['invoice']) ? $_GET['invoice'] : '') ?>" required />
+            <label>Invoice/Job Number (24 characters max):</label>
+            <input name="invoice" type="text" maxlength="24" value="<?php echo (isset($_GET['invoice']) ? $_GET['invoice'] : '') ?>" required />
         </div>
       </div>
       <div class="form-group">
@@ -44,7 +44,7 @@ defined('_JEXEC') or die('Restricted access');
       </div>
       <div class="form-group">
         <div class="form-item full" style="width: 290px">
-            <label>Card Number:</label>
+            <label>Card Number:</label><img src="<?php echo JURI::root();?>components/com_firstdata/libs/images/visa_mc_disc_credit_card_logos_176x35.png" class="cc-image" />
             <input name="ccNo" class="ccNo" type="text" maxlength="19" required />
         </div>
         <div class="form-item">
@@ -66,7 +66,7 @@ defined('_JEXEC') or die('Restricted access');
                       <OPTION VALUE="12">12</OPTION>
                     </SELECT>
               </div>
-              <div class="form-item"> / </div>
+              <div class="form-item divider"> / </div>
               <div class="form-item">
                 <SELECT NAME="ccExpiresYear" required>
                   <OPTION VALUE="15">2015</OPTION>
@@ -97,7 +97,13 @@ defined('_JEXEC') or die('Restricted access');
         </div>
         <div class="form-item">
             <label>Card Code:</label>
-            <input name="ccCode" type="text" value="" size="10" maxlength="3" required />
+            <input name="ccCode" type="text" value="" size="10" maxlength="4" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-item full" style="width: 470px">
+            <label>Description/Notes:</label>
+            <textarea name="desc" maxlength="250"><?php echo (isset($_GET['desc']) ? $_GET['desc'] : '') ?></textarea>
         </div>
       </div>
       <div class="form-group">

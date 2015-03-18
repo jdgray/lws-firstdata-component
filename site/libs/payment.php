@@ -23,7 +23,7 @@ class payment
 	public $ccCode = 0;
 	//contact
 	public $email = "";
-	public $notes = "";
+	public $desc = "";
 	//paymant
 	public $transactionReceipt = "";
 

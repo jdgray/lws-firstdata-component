@@ -84,8 +84,9 @@ class FirstDataViewFirstData extends JView
 			}';
 
 		$style .= '#payment-form .form-item  {
-			margin-left: 10px;
+			margin: 0px 0px 5px 10px ;
 			display: inline-block;
+			vertical-align: top;
 			}';
 
 		$style .= '#payment-form .form-item input  {
@@ -94,6 +95,12 @@ class FirstDataViewFirstData extends JView
 
 		$style .= '#payment-form .form-item label {
 			padding-left: 5px;
+			}';
+
+		$style .= '#payment-form .form-item .divider  {
+			font-size: 24px;
+			padding-top: 10px;
+			vertical-align: middle;
 			}';
 	
 		//basic form styles
@@ -122,11 +129,22 @@ class FirstDataViewFirstData extends JView
 			      transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 			}';
 
+		$style .= '#payment-form textarea  {
+			width: 100%;
+			height: 50px;
+			}';
+
 		$style .= '#payment-form .submit {
 			width: 100%;
 			height: 40px;
 			font-size: 14px;
 			background-color: #EAD78C;
+			}';
+
+		$style .= '#payment-form .cc-image {
+			height: 15px; 
+			padding-left: 5px; 
+			vertical-align: middle;
 			}';
 
 		//form error

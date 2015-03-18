@@ -5,6 +5,9 @@ defined('_JEXEC') or die('Restricted access');
 // import Joomla controller library
 jimport('joomla.application.component.controller');
 
+//import logging
+jimport('joomla.log.log');
+
 require_once(dirname(__FILE__) . '/libs/payment.php');
 require_once(dirname(__FILE__) . '/libs/helper.php');
  
@@ -70,7 +73,7 @@ class FirstDataController extends JController
 			$payment->ccCode = $jinput->get('ccCode', '', 'INTEGER');
 			//contact
 			$payment->email = $jinput->get('email', '', 'STRING');
-			//$payment->notes = $jinput->get('notes', '', 'STRING');
+			$payment->desc = $jinput->get('desc', '', 'STRING');
 
 			$payment->ccNo = str_replace(" ", "", $payment->ccNo);
 
@@ -100,16 +103,20 @@ class FirstDataController extends JController
 				JFactory::getApplication()->redirect('index.php?option=com_firstdata&Itemid=353&view=firstdata&msg=' . $msg);
 				
 			} else {
-				throw new Exception($config['error_msg']);
+				throw new Exception($transaction['error']);
 			}
 			
 			return true;
 
 		} catch(Exception $e) {
 
+			//log message
+			JLog::add(JText::_($e->getMessage()), JLog::CRITICAL);
+
+			//repost data
 			$qs = '&Itemid=353&view=firstdata';
 			$qs .= '&error=true';
-			$qs .= '&msg=' . $e->getMessage();
+			$qs .= '&msg=' . $config['error_msg'];
 			$qs .= '&amount=' . $payment->ccAmount;
 			$qs .= '&name=' . $payment->name;
 			$qs .= '&company=' . $payment->company;
