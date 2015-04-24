@@ -194,6 +194,9 @@ class helper
 		$message .= "Order ID: " . $transaction['order_id'] . "\r\n";
 		$message .= "Transaction ID: " . $transaction['transaction_id'] . "\r\n";
 		$message .= "Description: " . $payment->desc . "\r\n";
+		$message .= "Email: " . $payment->email . "\r\n";
+		$message .= "Name: " . $payment->name . "\r\n";
+		$message .= "Company: " . $payment->company . "\r\n";
 
 		// In case any of our lines are larger than 70 characters, we should use wordwrap()
 		$message = wordwrap($message, 70, "\r\n");
