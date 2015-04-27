@@ -15,7 +15,7 @@ class helper
 				"ssl_cert" 		=> "testing/WS1909449222._.1.pem",
 				"ssl_key"		=> "testing/WS1909449222._.1.key",
 				"ssl_key_pass"	=> "ckp_1423720666",
-				"email"			=> "jonathon@thesnippetapp.com",
+				"email"			=> array( 'jonathon@thesnippetapp.com' ),
 				"success_msg"	=> "Payment received. Thank you. An email receipt will be emailed to %s.",
 				"error_msg"		=> "Error. Payment unsuccessful. Please go back and try again."
 			),
@@ -25,7 +25,7 @@ class helper
 				"ssl_cert" 		=> "WS1001339284._.1.pem",
 				"ssl_key"		=> "WS1001339284._.1.key",
 				"ssl_key_pass"	=> "ckp_1423702785",
-				"email"			=> "personnel@languageworldservices.com",
+				"email"			=> array( 'personnel@languageworldservices.com', 'lisa@languageworldservices.com', 'amendoza@languageworldservices.com' ),
 				"success_msg"	=> "Payment received. Thank you. An email receipt will be emailed to %s.",
 				"error_msg"		=> "Error. Payment unsuccessful. Please go back and try again."
 			)
@@ -202,7 +202,6 @@ class helper
 		$message = wordwrap($message, 70, "\r\n");
 
 		// Send
-		//mail($email, 'LWS Charge Receipt - ' . $transaction['transaction_id'], $message);
 		$mailer = JFactory::getMailer();
 		
 		$mailer->setSender(array('donotreply@languageworldservices.com', 'Language World Services'));
