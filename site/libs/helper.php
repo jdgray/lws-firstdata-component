@@ -25,7 +25,7 @@ class helper
 				"ssl_cert" 		=> "WS1001339284._.1.pem",
 				"ssl_key"		=> "WS1001339284._.1.key",
 				"ssl_key_pass"	=> "ckp_1423702785",
-				"email"			=> array( 'personnel@languageworldservices.com', 'lisa@languageworldservices.com', 'amendoza@languageworldservices.com' ),
+				"email"			=> array( 'ebeverlywilliams@languageworldservices.com', 'lisa@languageworldservices.com', 'amendoza@languageworldservices.com' ),
 				"success_msg"	=> "Payment received. Thank you. An email receipt will be emailed to %s.",
 				"error_msg"		=> "Error. Payment unsuccessful. Please go back and try again."
 			)
